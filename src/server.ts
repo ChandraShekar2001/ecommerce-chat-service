@@ -63,7 +63,7 @@ const routesMiddleware = (app: Application): void => {
 };
 
 const startQueues = async (): Promise<void> => {
-  chatChannel = await createConnection() as Channel;
+  chatChannel = (await createConnection()) as Channel;
 };
 
 const startElasticSearch = (): void => {
@@ -72,7 +72,7 @@ const startElasticSearch = (): void => {
 
 const chatErrorHandler = (app: Application): void => {
   app.use((error: IErrorResponse, _req: Request, res: Response, next: NextFunction) => {
-    log.log('error', `ChatService :`, error);
+    log.log('error', 'ChatService :', error);
     if (error instanceof CustomError) {
       res.status(error.statusCode).json(error.serializeErrors());
     }
